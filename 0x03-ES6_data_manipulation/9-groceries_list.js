@@ -1,11 +1,13 @@
-export default function groceriesList() {
-  const values = [
-    ['Apples', 10],
-    ['Tomatoes', 10],
-    ['Pasta', 1],
-    ['Rice', 1],
-    ['Banana', 5],
-  ];
+const cleanSet = (set, startString) => {
+  const strings = [];
 
-  return new Map(values);
-}
+  if (startString === '' || typeof startString !== 'string') return '';
+  set.forEach((s) => {
+    if (typeof s === 'string' && s.startsWith(startString)) {
+      strings.push(s.slice(startString.length));
+    }
+  });
+  return strings.join('-');
+};
+
+export default cleanSet;
