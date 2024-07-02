@@ -1,13 +1,20 @@
-const cleanSet = (set, startString) => {
-  const strings = [];
+export default function cleanSet(set, startString) {
+  if (
+    !set && !startString && !(set instanceof Set) && typeof startString !== 'string'
+  ) {
+    return '';
+  }
 
-  if (startString === '' || typeof startString !== 'string') return '';
-  set.forEach((s) => {
-    if (typeof s === 'string' && s.startsWith(startString)) {
-      strings.push(s.slice(startString.length));
+  const parts = [];
+
+  for (const value of set.values()) {
+    if (typeof value === 'string' && value.startsWith(startString)) {
+      const valueSubStr = value.substring(startString.length);
+
+      if (valueSubStr && valueSubStr !== value) {
+        parts.push(valueSubStr);
+      }
     }
-  });
-  return strings.join('-');
-};
-
-export default cleanSet;
+  }
+  return parts.join('-');
+}
